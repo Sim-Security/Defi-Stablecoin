@@ -43,9 +43,21 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__NotZeroAddress();
 
 
+    address private OWNABLE_ADDRESS$ = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+    /**
+     * @dev Constructor function for the DecentralizedStableCoin contract.
+     * It initializes the ERC20 token with the name "DecentralizedStableCoin" and the symbol "DSC".
+     * It also sets the initial owner of the contract.
+     */
+    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(OWNABLE_ADDRESS$) {
+    }
 
-    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266){}
-
+    /**
+     * @dev Function to burn tokens from the caller's account.
+     * It checks if the caller has enough balance to burn the specified amount of tokens.
+     * It also checks if the amount to burn is greater than zero.
+     * @param _amount The amount of tokens to burn.
+     */
     function burn(uint256 _amount) public override onlyOwner {
         uint256 balance = balanceOf(msg.sender);
         if (_amount <= 0){
@@ -57,6 +69,14 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
         super.burn(_amount);
     }
 
+    /**
+     * @dev Function to mint new tokens and assign them to the specified account.
+     * It checks if the specified account is not the zero address.
+     * It also checks if the amount to mint is greater than zero.
+     * @param _to The account to which the minted tokens will be assigned.
+     * @param _amount The amount of tokens to mint.
+     * @return A boolean that indicates if the operation was successful.
+     */
     function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
         if (_to == address(0)){
             revert DecentralizedStableCoin__NotZeroAddress();
