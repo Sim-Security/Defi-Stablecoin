@@ -43,13 +43,13 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__NotZeroAddress();
 
 
-    address private OWNABLE_ADDRESS$ = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+    address private OWNABLE_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     /**
      * @dev Constructor function for the DecentralizedStableCoin contract.
      * It initializes the ERC20 token with the name "DecentralizedStableCoin" and the symbol "DSC".
      * It also sets the initial owner of the contract.
      */
-    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(OWNABLE_ADDRESS$) {
+    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(OWNABLE_ADDRESS) {
     }
 
     /**
