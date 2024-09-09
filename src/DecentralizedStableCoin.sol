@@ -23,7 +23,7 @@
 // private
 // view & pure functions
 
-pragma solidity ^0.8.19;
+pragma solidity 0.8.19;
 
 import {ERC20Burnable, ERC20} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
@@ -42,14 +42,14 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
     error DecentralizedStableCoin__BurnAmountExceedsBalance();
     error DecentralizedStableCoin__NotZeroAddress();
 
-    address private OWNABLE_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+    // address private OWNABLE_ADDRESS = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     /**
      * @dev Constructor function for the DecentralizedStableCoin contract.
      * It initializes the ERC20 token with the name "DecentralizedStableCoin" and the symbol "DSC".
      * It also sets the initial owner of the contract.
      */
 
-    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable(OWNABLE_ADDRESS) {}
+    constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable() {}
 
     /**
      * @dev Function to burn tokens from the caller's account.
