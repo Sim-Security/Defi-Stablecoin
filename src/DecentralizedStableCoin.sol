@@ -48,7 +48,6 @@ contract DecentralizedStableCoin is ERC20Burnable, Ownable {
      * It initializes the ERC20 token with the name "DecentralizedStableCoin" and the symbol "DSC".
      * It also sets the initial owner of the contract.
      */
-
     constructor() ERC20("DecentralizedStableCoin", "DSC") Ownable() {}
 
     /**
