@@ -383,7 +383,6 @@ contract DSCEngine is ReentrancyGuard {
         return ((usdAmountInWei * PRECISION) / (uint256(price) * ADDITIONAL_FEED_PRECISION));
     }
 
-
     function getAccountInformation(address user)
         external
         view
