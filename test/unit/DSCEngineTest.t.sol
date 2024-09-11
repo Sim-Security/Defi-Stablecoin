@@ -165,35 +165,35 @@ contract DSCEngineTest is StdCheats, Test {
         assertEq(expectedDepositedAmount, AMOUNT_COLLATERAL);
     }
 
-    //     ///////////////////////////////////////
-    //     // depositCollateralAndMintDsc Tests //
-    //     ///////////////////////////////////////
+    /*//////////////////////////////////////////////////////////////
+                   DEPOSITCOLLATERALANDMINTDSC TESTS
+    //////////////////////////////////////////////////////////////*/
 
-    //     function testRevertsIfMintedDscBreaksHealthFactor() public {
-    //         (, int256 price,,,) = MockV3Aggregator(ethUsdPriceFeed).latestRoundData();
-    //         amountToMint = (amountCollateral * (uint256(price) * dsce.getAdditionalFeedPrecision())) / dsce.getPrecision();
-    //         vm.startPrank(user);
-    //         ERC20Mock(weth).approve(address(dsce), amountCollateral);
+        function testRevertsIfMintedDscBreaksHealthFactor() public {
+            (, int256 price,,,) = MockV3Aggregator(ethUsdPriceFeed).latestRoundData();
+            amountToMint = (AMOUNT_COLLATERAL * (uint256(price) * dsce.getAdditionalFeedPrecision())) / dsce.getPrecision();
+            vm.startPrank(user);
+            ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
 
-    //         uint256 expectedHealthFactor =
-    //             dsce.calculateHealthFactor(amountToMint, dsce.getUsdValue(weth, amountCollateral));
-    //         vm.expectRevert(abi.encodeWithSelector(DSCEngine.DSCEngine__BreaksHealthFactor.selector, expectedHealthFactor));
-    //         dsce.depositCollateralAndMintDsc(weth, amountCollateral, amountToMint);
-    //         vm.stopPrank();
-    //     }
+            uint256 expectedHealthFactor =
+            dsce.calculateHealthFactor(amountToMint, dsce.getUsdValue(weth, AMOUNT_COLLATERAL));
+            vm.expectRevert(abi.encodeWithSelector(DSCEngine.DSCEngine__BreaksHealthFactor.selector, expectedHealthFactor));
+            dsce.depositCollateralAndMintDsc(weth, AMOUNT_COLLATERAL, amountToMint);
+            vm.stopPrank();
+        }
 
-    //     modifier depositedCollateralAndMintedDsc() {
-    //         vm.startPrank(user);
-    //         ERC20Mock(weth).approve(address(dsce), amountCollateral);
-    //         dsce.depositCollateralAndMintDsc(weth, amountCollateral, amountToMint);
-    //         vm.stopPrank();
-    //         _;
-    //     }
+        modifier depositedCollateralAndMintedDsc() {
+            vm.startPrank(user);
+            ERC20Mock(weth).approve(address(dsce), AMOUNT_COLLATERAL);
+            dsce.depositCollateralAndMintDsc(weth, AMOUNT_COLLATERAL, amountToMint);
+            vm.stopPrank();
+            _;
+        }
 
-    //     function testCanMintWithDepositedCollateral() public depositedCollateralAndMintedDsc {
-    //         uint256 userBalance = dsc.balanceOf(user);
-    //         assertEq(userBalance, amountToMint);
-    //     }
+        function testCanMintWithDepositedCollateral() public depositedCollateralAndMintedDsc {
+            uint256 userBalance = dsc.balanceOf(user);
+            assertEq(userBalance, amountToMint);
+        }
 
     //     ///////////////////////////////////
     //     // mintDsc Tests //
